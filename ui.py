@@ -9,22 +9,6 @@ from tkinter import Tk, filedialog, messagebox, Button, Label, Frame
 from tkinter import *
 
 
-# Remove noise and save to a new file
-def remove_noise(audio_path):
-    y, sr_rate = librosa.load(audio_path)
-    D = librosa.stft(y)
-    magnitude = np.abs(D)
-    noise_level = np.mean(magnitude[:1000])
-    cleaned_magnitude = np.maximum(magnitude - noise_level, 0)
-    cleaned_D = cleaned_magnitude * np.exp(1j * np.angle(D))
-    cleaned_audio = librosa.istft(cleaned_D)
-    cleaned_path = 'cleaned_audio.wav'
-    sf.write(cleaned_path, cleaned_audio, sr_rate)
-
-
-
-
-
 def process_selected_images():
     root = Tk()
     root.withdraw()
